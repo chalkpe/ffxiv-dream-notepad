@@ -49,7 +49,7 @@ export const Battlefield = () => {
   )
 
   return (
-    <div className="h-10/12 aspect-square relative">
+    <div className="size-120 aspect-square relative">
       <div className="absolute top-0 left-0 w-full h-full rounded-full border-4 border-gray-400" />
 
       {/* <div className="w-full h-1 absolute top-1/2 left-0 bg-gray-400" />
