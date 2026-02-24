@@ -99,6 +99,19 @@ export const Battlefield = () => {
 
       {movementDirection && (
         <svg viewBox="0 0 6 6" className="absolute top-0 left-0 w-full h-full" aria-label="이동 방향">
+          {movementDirection
+            .flatMap((pos, index) => (index > 0 ? [[movementDirection[index - 1], pos]] : []))
+            .map(([from, to], index) => (
+              <line // biome-ignore lint/suspicious/noArrayIndexKey: index is stable here as movementDirection length is fixed
+                key={`movement-${index}`}
+                x1={positionToCoordinates[from].x}
+                y1={positionToCoordinates[from].y}
+                x2={positionToCoordinates[to].x}
+                y2={positionToCoordinates[to].y}
+                stroke="#80808080"
+                strokeWidth="0.05"
+              />
+            ))}
           {Array.from(
             movementDirection
               .reduce((map, pos, index) => {
