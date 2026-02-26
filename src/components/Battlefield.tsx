@@ -29,7 +29,7 @@ export const Battlefield = () => {
 
   return (
     <div className="aspect-square relative w-[85vmin]">
-      <img src="/field.png" alt="전장" className="absolute top-0 left-0 w-full h-full object-contain rounded-full" />
+      <img src="field.png" alt="전장" className="absolute top-0 left-0 w-full h-full object-contain rounded-full" />
 
       {/* <div className="absolute top-0 left-0 w-full h-full rounded-full border-4 border-gray-400" /> */}
 
@@ -37,50 +37,50 @@ export const Battlefield = () => {
       <div className="w-1 h-full absolute top-0 left-1/2 bg-gray-400" /> */}
 
       <img
-        src="/waymarka.png"
+        src="waymarka.png"
         alt="A징"
         className={cn(className, 'bg-[#FF6E6E] rounded-full')}
         style={{ left: `${positionToCoordinates.A.x}%`, top: `${positionToCoordinates.A.y}%` }}
       />
       <img
-        src="/waymarkb.png"
+        src="waymarkb.png"
         alt="B징"
         className={cn(className, 'bg-[#F3FB9C] rounded-full')}
         style={{ left: `${positionToCoordinates.B.x}%`, top: `${positionToCoordinates.B.y}%` }}
       />
       <img
-        src="/waymarkc.png"
+        src="waymarkc.png"
         alt="C징"
         className={cn(className, 'bg-[#9BECFE] rounded-full')}
         style={{ left: `${positionToCoordinates.C.x}%`, top: `${positionToCoordinates.C.y}%` }}
       />
       <img
-        src="/waymarkd.png"
+        src="waymarkd.png"
         alt="D징"
         className={cn(className, 'bg-[#C878FF] rounded-full')}
         style={{ left: `${positionToCoordinates.D.x}%`, top: `${positionToCoordinates.D.y}%` }}
       />
 
       <img
-        src="/waymark1.png"
+        src="waymark1.png"
         alt="1번징"
         className={cn(className, 'bg-[#FF6E6E] p-[0.3vmin]')}
         style={{ left: `${positionToCoordinates['1'].x}%`, top: `${positionToCoordinates['1'].y}%` }}
       />
       <img
-        src="/waymark2.png"
+        src="waymark2.png"
         alt="2번징"
         className={cn(className, 'bg-[#F3FB9C] p-[0.3vmin]')}
         style={{ left: `${positionToCoordinates['2'].x}%`, top: `${positionToCoordinates['2'].y}%` }}
       />
       <img
-        src="/waymark3.png"
+        src="waymark3.png"
         alt="3번징"
         className={cn(className, 'bg-[#9BECFE] p-[0.3vmin]')}
         style={{ left: `${positionToCoordinates['3'].x}%`, top: `${positionToCoordinates['3'].y}%` }}
       />
       <img
-        src="/waymark4.png"
+        src="waymark4.png"
         alt="4번징"
         className={cn(className, 'bg-[#C878FF] p-[0.3vmin]')}
         style={{ left: `${positionToCoordinates['4'].x}%`, top: `${positionToCoordinates['4'].y}%` }}

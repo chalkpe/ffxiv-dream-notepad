@@ -65,7 +65,7 @@ export const DreamSwitchB = () => {
               )}
             >
               <img
-                src={`/waymark${clonePosition.toLowerCase()}.png`}
+                src={`waymark${clonePosition.toLowerCase()}.png`}
                 alt={`${clonePosition}징 양옆`}
                 className={cn(
                   'size-[10vmin] border-[0.5vmin] rounded-full box-border',
@@ -88,7 +88,7 @@ export const DreamSwitchB = () => {
               className={cn('cursor-pointer', safeIsland !== undefined && safeIsland !== island && 'opacity-10 cursor-not-allowed')}
             >
               <img
-                src={`/waymark${island.toLowerCase()}.png`}
+                src={`waymark${island.toLowerCase()}.png`}
                 alt={`${island}섬`}
                 className={cn(
                   'size-[10vmin] border-[0.5vmin] rounded-full box-border',

@@ -27,8 +27,8 @@ export const DreamSwitchA = () => {
                 cloneEncounterPosition !== undefined && cloneEncounterPosition !== info.id && 'opacity-10 cursor-not-allowed',
               )}
             >
-              <img src={`/button_${info.id}.png`} alt={info.name} className="size-[8vmin] z-0 top-[0.6vmin] left-[1vmin] absolute" />
-              <img src="/frame.png" alt="테두리" className="absolute top-0 left-0 size-[10vmin] z-10" />
+              <img src={`button_${info.id}.png`} alt={info.name} className="size-[8vmin] z-0 top-[0.6vmin] left-[1vmin] absolute" />
+              <img src="frame.png" alt="테두리" className="absolute top-0 left-0 size-[10vmin] z-10" />
             </button>
           ))}
         </div>
@@ -44,7 +44,7 @@ export const DreamSwitchA = () => {
               className={cn('cursor-pointer', safeArea !== undefined && safeArea !== area && 'opacity-10 cursor-not-allowed')}
             >
               <img
-                src={`/waymark${area.toLowerCase()}.png`}
+                src={`waymark${area.toLowerCase()}.png`}
                 alt={`${area}징 양옆`}
                 className={cn(
                   'size-[10vmin] border-[0.5vmin] rounded-full box-border',
@@ -71,12 +71,12 @@ export const DreamSwitchA = () => {
                 playerPosition !== undefined && playerPosition !== info.id && 'opacity-10 cursor-not-allowed',
               )}
             >
-              <img src={`/waymark${info.waymark.toLowerCase()}.png`} alt={info.name} className="size-[7vmin]" />
+              <img src={`waymark${info.waymark.toLowerCase()}.png`} alt={info.name} className="size-[7vmin]" />
             </button>
           ))}
           {marker && (
             <img
-              src={`/${marker}.png`}
+              src={`${marker}.png`}
               alt="징"
               className="size-[16vmin] absolute top-0 left-0 right-0 bottom-0 m-auto pointer-events-none"
             />
@@ -97,7 +97,7 @@ export const DreamSwitchA = () => {
                 firstAttack !== undefined && firstAttack !== attack && 'opacity-10 cursor-not-allowed',
               )}
             >
-              <img src={`/${attack}.png`} alt={attack} className="size-[10vmin] rounded-full aspect-square" />
+              <img src={`${attack}.png`} alt={attack} className="size-[10vmin] rounded-full aspect-square" />
             </button>
           ))}
         </div>
