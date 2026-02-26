@@ -23,8 +23,8 @@ export const DreamSwitchA = () => {
               type="button"
               onClick={() => setCloneEncounterPosition(info.id)}
               className={cn(
-                'relative size-[10vmin]',
-                cloneEncounterPosition !== undefined && cloneEncounterPosition !== info.id && 'opacity-20 cursor-not-allowed',
+                'relative size-[10vmin] cursor-pointer',
+                cloneEncounterPosition !== undefined && cloneEncounterPosition !== info.id && 'opacity-10 cursor-not-allowed',
               )}
             >
               <img src={`/button_${info.id}.png`} alt={info.name} className="size-[8vmin] z-0 top-[0.6vmin] left-[1vmin] absolute" />
@@ -41,7 +41,7 @@ export const DreamSwitchA = () => {
               key={area}
               type="button"
               onClick={() => setSafeArea(area)}
-              className={cn(safeArea !== undefined && safeArea !== area && 'opacity-20 cursor-not-allowed')}
+              className={cn('cursor-pointer', safeArea !== undefined && safeArea !== area && 'opacity-10 cursor-not-allowed')}
             >
               <img
                 src={`/waymark${area.toLowerCase()}.png`}
@@ -67,8 +67,8 @@ export const DreamSwitchA = () => {
               onClick={() => setPlayerPosition(info.id)}
               style={{ gridRow: info.gridPosition.row, gridColumn: info.gridPosition.col }}
               className={cn(
-                'size-[7vmin] flex items-center justify-center',
-                playerPosition !== undefined && playerPosition !== info.id && 'opacity-20 cursor-not-allowed',
+                'cursor-pointer size-[7vmin] flex items-center justify-center',
+                playerPosition !== undefined && playerPosition !== info.id && 'opacity-10 cursor-not-allowed',
               )}
             >
               <img src={`/waymark${info.waymark.toLowerCase()}.png`} alt={info.name} className="size-[7vmin]" />
@@ -92,7 +92,10 @@ export const DreamSwitchA = () => {
               key={attack}
               type="button"
               onClick={() => setFirstAttack(attack)}
-              className={cn('size-[10vmin]', firstAttack !== undefined && firstAttack !== attack && 'opacity-20 cursor-not-allowed')}
+              className={cn(
+                'cursor-pointer size-[10vmin]',
+                firstAttack !== undefined && firstAttack !== attack && 'opacity-10 cursor-not-allowed',
+              )}
             >
               <img src={`/${attack}.png`} alt={attack} className="size-[10vmin] rounded-full aspect-square" />
             </button>

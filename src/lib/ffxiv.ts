@@ -11,8 +11,8 @@ export type SpreadOrder = 1 | 2
 /** 그룹 종류: 산개 or 쉐어 */
 export type GroupType = 'spread' | 'stack'
 
-/** 담당 탑 위치: 위쪽 or 아래쪽 */
-export type TowerPosition = 'top' | 'bottom'
+/** 담당 탑 위치: 사각형 꼭지점 */
+export type TowerPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
 export type RoleInfo = {
   id: Role
@@ -22,14 +22,14 @@ export type RoleInfo = {
 }
 
 export const roles: RoleInfo[] = [
-  { id: 'MT', type: 'T', group: 1, towerPosition: 'top' },
-  { id: 'ST', type: 'T', group: 2, towerPosition: 'bottom' },
-  { id: 'H1', type: 'H', group: 1, towerPosition: 'bottom' },
-  { id: 'H2', type: 'H', group: 2, towerPosition: 'top' },
-  { id: 'D1', type: 'D', group: 1, towerPosition: 'bottom' },
-  { id: 'D2', type: 'D', group: 2, towerPosition: 'top' },
-  { id: 'D3', type: 'D', group: 1, towerPosition: 'top' },
-  { id: 'D4', type: 'D', group: 2, towerPosition: 'bottom' },
+  { id: 'MT', type: 'T', group: 1, towerPosition: 'top-right' },
+  { id: 'ST', type: 'T', group: 2, towerPosition: 'bottom-left' },
+  { id: 'H1', type: 'H', group: 1, towerPosition: 'bottom-left' },
+  { id: 'H2', type: 'H', group: 2, towerPosition: 'top-right' },
+  { id: 'D1', type: 'D', group: 1, towerPosition: 'bottom-right' },
+  { id: 'D2', type: 'D', group: 2, towerPosition: 'top-left' },
+  { id: 'D3', type: 'D', group: 1, towerPosition: 'top-left' },
+  { id: 'D4', type: 'D', group: 2, towerPosition: 'bottom-right' },
 ]
 
 /** 첫 번째 분신 등장 위치: 십자 or 엑스자 */
@@ -129,3 +129,7 @@ export const movementMapping: Record<
   'NW-heavyslam': ['2', 'X', '2', 'C'],
   'NW-manaburst': ['X', '2', 'C', '2'],
 }
+
+export type IslandType = 'B' | 'D'
+
+export const islands: IslandType[] = ['D', 'B']

@@ -1,6 +1,6 @@
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
-import type { AttackType, CloneEncounterPosition, ClonePosition, Role, TetherClonePosition, TowerType } from '../lib/ffxiv'
+import type { AttackType, CloneEncounterPosition, ClonePosition, IslandType, Role, TetherClonePosition, TowerType } from '../lib/ffxiv'
 
 /** 내 역할 */
 export const roleAtom = atomWithStorage<Role | undefined>('role', undefined)
@@ -20,8 +20,8 @@ export const firstAttackAtom = atom<AttackType>()
 /** 내 위치의 탑 종류 */
 export const towerTypeAtom = atom<TowerType>()
 
-/** 탑 위치 스왑 필요 여부 */
-export const isTowerSwapNeededAtom = atom<boolean>()
-
 /** 블랙홀에 흡입된 분신 (12시 or 6시) */
 export const swallowedCloneAtom = atom<ClonePosition>()
+
+/** 안전한 섬 */
+export const safeIslandAtom = atom<IslandType>()
