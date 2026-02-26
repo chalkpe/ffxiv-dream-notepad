@@ -1,13 +1,13 @@
 import { Battlefield } from './components/Battlefield'
 import { DreamSwitchA } from './components/DreamSwitchA'
-import { RoleSwitch } from './components/RoleSwitch'
+import { DreamSwitchB } from './components/DreamSwitchB'
 
 function App() {
   return (
-    <div className="w-full h-screen flex items-center justify-center gap-4">
-      <RoleSwitch />
+    <div className="w-full h-screen flex items-center justify-center gap-[4vmin]">
       <DreamSwitchA />
       <Battlefield />
+      <DreamSwitchB />
     </div>
   )
 }

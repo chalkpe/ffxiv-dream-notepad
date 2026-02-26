@@ -13,7 +13,7 @@ export const DreamSwitchA = () => {
   const marker = playerPositions.find((info) => info.id === playerPosition)?.marker
 
   return (
-    <div className="flex flex-col items-center justify-stretch gap-[1.5vmin] w-fit">
+    <div className="flex flex-col items-center justify-stretch gap-[1.5vmin] shrink-0">
       <XIVDialog className="flex flex-col gap-[1vmin]">
         <h2 className="text-[2.5vmin] font-bold">첫 분신 등장 위치</h2>
         <div className="flex gap-[2vmin]">

@@ -11,21 +11,25 @@ export type SpreadOrder = 1 | 2
 /** 그룹 종류: 산개 or 쉐어 */
 export type GroupType = 'spread' | 'stack'
 
+/** 담당 탑 위치: 위쪽 or 아래쪽 */
+export type TowerPosition = 'top' | 'bottom'
+
 export type RoleInfo = {
   id: Role
   type: RoleType
   group: StackGroup
+  towerPosition?: TowerPosition
 }
 
 export const roles: RoleInfo[] = [
-  { id: 'MT', type: 'T', group: 1 },
-  { id: 'ST', type: 'T', group: 2 },
-  { id: 'H1', type: 'H', group: 1 },
-  { id: 'H2', type: 'H', group: 2 },
-  { id: 'D1', type: 'D', group: 1 },
-  { id: 'D2', type: 'D', group: 2 },
-  { id: 'D3', type: 'D', group: 1 },
-  { id: 'D4', type: 'D', group: 2 },
+  { id: 'MT', type: 'T', group: 1, towerPosition: 'top' },
+  { id: 'ST', type: 'T', group: 2, towerPosition: 'bottom' },
+  { id: 'H1', type: 'H', group: 1, towerPosition: 'bottom' },
+  { id: 'H2', type: 'H', group: 2, towerPosition: 'top' },
+  { id: 'D1', type: 'D', group: 1, towerPosition: 'bottom' },
+  { id: 'D2', type: 'D', group: 2, towerPosition: 'top' },
+  { id: 'D3', type: 'D', group: 1, towerPosition: 'top' },
+  { id: 'D4', type: 'D', group: 2, towerPosition: 'bottom' },
 ]
 
 /** 첫 번째 분신 등장 위치: 십자 or 엑스자 */
@@ -84,6 +88,21 @@ export const attackTypes: AttackType[] = ['heavyslam', 'manaburst']
 
 /** 탑 종류: 불(가만히), 땅(죽순), 바람(넉백), 어둠(죽선) */
 export type TowerType = 'fire' | 'earth' | 'wind' | 'dark'
+
+export type TowerInfo = {
+  id: TowerType
+  name: string
+  color: string
+}
+
+export const topTowers: TowerInfo[] = [
+  { id: 'wind', name: '바람', color: '#a2c584' },
+  { id: 'earth', name: '땅', color: '#b97e62' },
+]
+export const bottomTowers: TowerInfo[] = [
+  { id: 'fire', name: '불', color: '#e66163' },
+  { id: 'dark', name: '어둠', color: '#8b65a6' },
+]
 
 /** 이동 지점: 바닥징 or X(산개 피하는 자리) */
 export type MovementPosition = WaymarkType | 'X'
