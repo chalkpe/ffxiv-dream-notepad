@@ -2,6 +2,7 @@ import { useAtom } from 'jotai'
 import { attackTypes, cloneEncounterPositions, playerPositions, safeAreas } from '../lib/ffxiv'
 import { cn } from '../lib/utils'
 import { cloneEncounterPositionAtom, firstAttackAtom, playerPositionAtom, safeAreaAtom } from '../stores/state'
+import { XIVDialog } from './XIVDialog'
 
 export const DreamSwitchA = () => {
   const [cloneEncounterPosition, setCloneEncounterPosition] = useAtom(cloneEncounterPositionAtom)
@@ -13,7 +14,7 @@ export const DreamSwitchA = () => {
 
   return (
     <div className="flex flex-col items-center justify-stretch gap-4 w-fit">
-      <nav className="border-2 border-gray-400 rounded-xl p-4 w-fit flex gap-2">
+      <XIVDialog className="flex gap-2">
         {cloneEncounterPositions.map((info) => (
           <button
             key={info.id}
@@ -28,8 +29,8 @@ export const DreamSwitchA = () => {
             <img src="/frame.png" alt="테두리" className="absolute top-0 left-0 w-20 h-20 z-10" />
           </button>
         ))}
-      </nav>
-      <nav className="border-2 border-gray-400 rounded-xl p-4 w-fit flex gap-2">
+      </XIVDialog>
+      <XIVDialog className="flex gap-2">
         {safeAreas.map((area) => (
           <button
             key={area}
@@ -40,13 +41,20 @@ export const DreamSwitchA = () => {
             <img
               src={`/waymark${area.toLowerCase()}.png`}
               alt={`${area}징 양옆`}
-              className={cn('w-20 h-20 border-4 rounded-full', area === 'A' && 'border-[#FF6E6EAA]', area === 'C' && 'border-[#9BECFEAA]')}
+              className={cn(
+                'w-20 h-20 border-4 rounded-full box-border',
+                area === 'A' && 'border-[#FF6E6EFF] bg-[#FF6E6E99]',
+                area === 'C' && 'border-[#9BECFEFF] bg-[#9BECFE99]',
+              )}
             />
           </button>
         ))}
-      </nav>
+      </XIVDialog>
 
-      <div className="border-2 border-gray-400 rounded-xl p-4 w-full grid grid-cols-3 gap-2 relative items-center justify-center">
+      <XIVDialog
+        className="grid grid-cols-3 gap-2 items-center justify-center w-full"
+        containerClassName="w-full aspect-square flex items-center justify-center"
+      >
         {playerPositions.map((info) => (
           <button
             key={info.id}
@@ -61,9 +69,9 @@ export const DreamSwitchA = () => {
         {marker && (
           <img src={`/${marker}.png`} alt="징" className="size-32 absolute top-0 left-0 right-0 bottom-0 m-auto pointer-events-none" />
         )}
-      </div>
+      </XIVDialog>
 
-      <nav className="border-2 border-gray-400 rounded-xl p-4 w-fit flex gap-2">
+      <XIVDialog className="flex gap-2">
         {attackTypes.map((attack) => (
           <button
             key={attack}
@@ -71,10 +79,10 @@ export const DreamSwitchA = () => {
             onClick={() => setFirstAttack(attack)}
             className={cn(firstAttack !== undefined && firstAttack !== attack && 'opacity-20 cursor-not-allowed')}
           >
-            <img src={`/${attack}.png`} alt={attack} className="w-20 h-20" />
+            <img src={`/${attack}.png`} alt={attack} className="w-20 h-20 rounded-full" />
           </button>
         ))}
-      </nav>
+      </XIVDialog>
     </div>
   )
 }

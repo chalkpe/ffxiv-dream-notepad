@@ -84,3 +84,29 @@ export const attackTypes: AttackType[] = ['heavyslam', 'manaburst']
 
 /** 탑 종류: 불(가만히), 땅(죽순), 바람(넉백), 어둠(죽선) */
 export type TowerType = 'fire' | 'earth' | 'wind' | 'dark'
+
+/** 이동 지점: 바닥징 or X(산개 피하는 자리) */
+export type MovementPosition = WaymarkType | 'X'
+
+/** 패턴별 이동 경로 */
+export const movementMapping: Record<
+  `${TetherClonePosition}-${AttackType}`,
+  [MovementPosition, MovementPosition, MovementPosition, MovementPosition]
+> = {
+  'N-heavyslam': ['1', 'X', '1', 'X'],
+  'N-manaburst': ['X', '1', 'X', '1'],
+  'NE-heavyslam': ['1', 'X', '1', 'X'],
+  'NE-manaburst': ['X', '1', 'X', '1'],
+  'E-heavyslam': ['2', 'X', '2', 'X'],
+  'E-manaburst': ['X', '2', 'X', '2'],
+  'SE-heavyslam': ['2', 'X', '2', 'X'],
+  'SE-manaburst': ['X', '2', 'X', '2'],
+  'S-heavyslam': ['1', 'D', '1', 'X'],
+  'S-manaburst': ['D', '1', 'X', '1'],
+  'SW-heavyslam': ['1', 'X', '1', 'D'],
+  'SW-manaburst': ['X', '1', 'D', '1'],
+  'W-heavyslam': ['2', 'C', '2', 'X'],
+  'W-manaburst': ['C', '2', 'X', '2'],
+  'NW-heavyslam': ['2', 'X', '2', 'C'],
+  'NW-manaburst': ['X', '2', 'C', '2'],
+}
