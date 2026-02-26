@@ -1,14 +1,15 @@
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 import { useMemo } from 'react'
 import { bottomTowers, islands, roles, swallowedClones, topTowers } from '../lib/ffxiv'
 import { cn } from '../lib/utils'
 import { roleAtom, safeIslandAtom, swallowedCloneAtom, towerTypeAtom } from '../stores/state'
-import { DreamResetButton } from './DreamResetButtom'
+import { DreamResetButton } from './DreamResetButton'
+import { XIVButton } from './XIVButton'
 import { XIVDialog } from './XIVDialog'
 
 export const DreamSwitchB = () => {
   const [towerType, setTowerType] = useAtom(towerTypeAtom)
-  const role = useAtomValue(roleAtom)
+  const [role, setRole] = useAtom(roleAtom)
   const [swallowedClone, setSwallowedClone] = useAtom(swallowedCloneAtom)
   const [safeIsland, setSafeIsland] = useAtom(safeIslandAtom)
 
@@ -100,7 +101,20 @@ export const DreamSwitchB = () => {
         </div>
       </XIVDialog>
 
-      <DreamResetButton />
+      <XIVDialog className="flex flex-col gap-[2vmin] p-[1vmin]" containerClassName="w-full">
+        <XIVButton
+          onClick={() =>
+            setRole((role) =>
+              roles.findIndex((r) => r.id === role) === roles.length - 1
+                ? roles[0].id
+                : roles[roles.findIndex((r) => r.id === role) + 1].id,
+            )
+          }
+        >
+          나: {role}
+        </XIVButton>
+        <DreamResetButton />
+      </XIVDialog>
     </div>
   )
 }

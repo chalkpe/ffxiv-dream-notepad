@@ -28,7 +28,7 @@ export const Battlefield = () => {
   const className = 'size-[6.5vmin] absolute -translate-x-1/2 -translate-y-1/2'
 
   return (
-    <div className="aspect-square relative w-[75vmin]">
+    <div className="aspect-square relative w-[85vmin]">
       <img src="/field.png" alt="전장" className="absolute top-0 left-0 w-full h-full object-contain rounded-full" />
 
       {/* <div className="absolute top-0 left-0 w-full h-full rounded-full border-4 border-gray-400" /> */}
