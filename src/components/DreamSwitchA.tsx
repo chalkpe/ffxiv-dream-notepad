@@ -14,7 +14,7 @@ export const DreamSwitchA = () => {
 
   return (
     <div className="flex flex-col items-center justify-stretch gap-[1.5vmin] shrink-0">
-      <XIVDialog className="flex flex-col gap-[1vmin]">
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={cloneEncounterPosition === undefined}>
         <h2 className="text-[2.5vmin] font-bold">첫 분신 등장 위치</h2>
         <div className="flex gap-[2vmin]">
           {cloneEncounterPositions.map((info) => (
@@ -33,7 +33,7 @@ export const DreamSwitchA = () => {
           ))}
         </div>
       </XIVDialog>
-      <XIVDialog className="flex flex-col gap-[1vmin]">
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={safeArea === undefined}>
         <h2 className="text-[2.5vmin] font-bold">부채꼴 안전지대</h2>
         <div className="flex gap-[2vmin]">
           {safeAreas.map((area) => (
@@ -57,7 +57,7 @@ export const DreamSwitchA = () => {
         </div>
       </XIVDialog>
 
-      <XIVDialog className="flex flex-col gap-[1vmin]">
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={playerPosition === undefined}>
         <h2 className="text-[2.5vmin] font-bold">분신 연결 방향</h2>
         <div className="grid grid-cols-3 gap-[1vmin] items-center justify-center relative">
           {playerPositions.map((info) => (
@@ -84,7 +84,7 @@ export const DreamSwitchA = () => {
         </div>
       </XIVDialog>
 
-      <XIVDialog className="flex flex-col gap-[1vmin]">
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={firstAttack === undefined}>
         <h2 className="text-[2.5vmin] font-bold">12시 쫄 공격 유형</h2>
         <div className="flex gap-[2vmin]">
           {attackTypes.map((attack) => (

@@ -33,7 +33,7 @@ export const DreamSwitchB = () => {
 
   return (
     <div className="flex flex-col items-center justify-stretch gap-[1.5vmin] shrink-0">
-      <XIVDialog className="flex flex-col gap-[1vmin]" containerClassName="w-full">
+      <XIVDialog className="flex flex-col gap-[1vmin]" containerClassName="w-full" active={towerType === undefined}>
         <h2 className="text-[2.5vmin] font-bold">내가 밟을 탑</h2>
         <div className="grid grid-cols-2 gap-x-[2vmin] gap-y-[1.25vmin] items-center justify-content-center w-fit place-self-center">
           <div className="h-[1vmin] rounded-[1vmin] bg-[#666] row-start-2 col-span-2 w-full" />
@@ -50,7 +50,7 @@ export const DreamSwitchB = () => {
           ))}
         </div>
       </XIVDialog>
-      <XIVDialog className="flex flex-col gap-[1vmin]">
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={swallowedClone === undefined}>
         <h2 className="text-[2.5vmin] font-bold">블랙홀에 들어간 분신</h2>
         <div className="flex gap-[2vmin]">
           {swallowedClones.map((clonePosition) => (
@@ -76,7 +76,7 @@ export const DreamSwitchB = () => {
           ))}
         </div>
       </XIVDialog>
-      <XIVDialog className="flex flex-col gap-[1vmin]">
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={safeIsland === undefined}>
         <h2 className="text-[2.5vmin] font-bold">안전한 섬</h2>
         <div className="flex gap-[2vmin]">
           {islands.map((island) => (
