@@ -18,7 +18,7 @@ export type RoleInfo = {
   id: Role
   type: RoleType
   group: StackGroup
-  towerPosition?: TowerPosition
+  towerPosition: TowerPosition
 }
 
 export const roles: RoleInfo[] = [

@@ -1,11 +1,12 @@
 import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
-import { type MovementPosition, movementMapping } from '../lib/ffxiv'
+import { bottomTowers, type MovementPosition, movementMapping, roles, topTowers } from '../lib/ffxiv'
 import { cn } from '../lib/utils'
 import {
   cloneEncounterPositionAtom,
   firstAttackAtom,
   playerPositionAtom,
+  roleAtom,
   safeAreaAtom,
   safeIslandAtom,
   swallowedCloneAtom,
@@ -13,10 +14,10 @@ import {
 } from '../stores/state'
 
 const positionToCoordinates: Record<MovementPosition, { x: number; y: number; safeX?: number; safeY?: number }> = {
-  A: { x: 50, y: 21.5 },
-  B: { x: 100 - 21.5, y: 50 },
-  C: { x: 50, y: 100 - 21.5, safeX: 50, safeY: 100 - 13 },
-  D: { x: 21.5, y: 50, safeX: 13, safeY: 50 },
+  A: { x: 50, y: 21 },
+  B: { x: 100 - 21, y: 50 },
+  C: { x: 50, y: 100 - 21, safeX: 50, safeY: 100 - 13 },
+  D: { x: 21, y: 50, safeX: 13, safeY: 50 },
   '1': { x: 50, y: 33 },
   '2': { x: 100 - 33, y: 50 },
   '3': { x: 50, y: 100 - 33 },
@@ -25,18 +26,13 @@ const positionToCoordinates: Record<MovementPosition, { x: number; y: number; sa
 }
 
 export const Battlefield = () => {
-  const firstAttack = useAtomValue(firstAttackAtom)
-  const playerPosition = useAtomValue(playerPositionAtom)
+  const className = 'size-[6.5%] absolute -translate-x-1/2 -translate-y-1/2'
 
-  const movementDirection = useMemo(
-    () => (firstAttack && playerPosition ? movementMapping[`${playerPosition}-${firstAttack}`] : null),
-    [firstAttack, playerPosition],
-  )
-
-  const className = 'size-[6.5vmin] absolute -translate-x-1/2 -translate-y-1/2'
-
+  const role = useAtomValue(roleAtom)
   const cloneEncounterPosition = useAtomValue(cloneEncounterPositionAtom)
   const safeArea = useAtomValue(safeAreaAtom)
+  const playerPosition = useAtomValue(playerPositionAtom)
+  const firstAttack = useAtomValue(firstAttackAtom)
   const towerType = useAtomValue(towerTypeAtom)
   const swallowedClone = useAtomValue(swallowedCloneAtom)
   const safeIsland = useAtomValue(safeIslandAtom)
@@ -65,6 +61,36 @@ export const Battlefield = () => {
         return greenMap
     }
   }, [firstAttack, safeArea, cloneEncounterPosition, towerType, playerPosition, swallowedClone, safeIsland])
+
+  const movementDirection = useMemo(
+    () => (firstAttack && playerPosition ? movementMapping[`${playerPosition}-${firstAttack}`] : null),
+    [firstAttack, playerPosition],
+  )
+
+  const myIslandPosition = useMemo(() => {
+    if (!role || !towerType) return null
+
+    const info = roles.find((r) => r.id === role)
+    if (!info) return null
+
+    const offset = 9.5
+    const center = info.group === 1 ? positionToCoordinates.D : positionToCoordinates.B
+    const color = [...topTowers, ...bottomTowers].find((t) => t.id === towerType)?.color ?? '#82FFF9'
+    const isTowerSwapped = info.towerPosition.startsWith('top') !== topTowers.some((t) => t.id === towerType)
+
+    switch (info.towerPosition) {
+      case 'top-left':
+        return { color, x: center.x - offset, y: isTowerSwapped ? center.y + offset : center.y - offset }
+      case 'top-right':
+        return { color, x: center.x + offset, y: isTowerSwapped ? center.y + offset : center.y - offset }
+      case 'bottom-left':
+        return { color, x: center.x - offset, y: isTowerSwapped ? center.y - offset : center.y + offset }
+      case 'bottom-right':
+        return { color, x: center.x + offset, y: isTowerSwapped ? center.y - offset : center.y + offset }
+      default:
+        return null
+    }
+  }, [role, towerType])
 
   return (
     <div className="aspect-square relative w-[85vmin]">
@@ -120,6 +146,14 @@ export const Battlefield = () => {
         style={{ left: `${positionToCoordinates['4'].x}%`, top: `${positionToCoordinates['4'].y}%` }}
       />
 
+      {/* <div
+        className={cn('size-[41.5%]', 'border-[#82FFF9] border-[2vmin] rounded-full absolute -translate-x-1/2 -translate-y-1/2')}
+        style={{
+          left: '21%',
+          top: '50%',
+        }}
+      /> */}
+
       {movementDirection && (
         <svg viewBox="0 0 6 6" className="absolute top-0 left-0 w-full h-full" aria-label="이동 방향">
           {movementDirection
@@ -132,10 +166,22 @@ export const Battlefield = () => {
                 y1={((positionToCoordinates[from].safeY ?? positionToCoordinates[from].y) / 100) * 6}
                 x2={((positionToCoordinates[to].safeX ?? positionToCoordinates[to].x) / 100) * 6}
                 y2={((positionToCoordinates[to].safeY ?? positionToCoordinates[to].y) / 100) * 6}
-                stroke="#FFCC00"
+                stroke="#FFCC00CC"
                 strokeWidth="0.05"
               />
             ))}
+
+          {movementDirection && myIslandPosition && (
+            <line
+              x1={((positionToCoordinates[movementDirection[3]].safeX ?? positionToCoordinates[movementDirection[3]].x) / 100) * 6}
+              y1={((positionToCoordinates[movementDirection[3]].safeY ?? positionToCoordinates[movementDirection[3]].y) / 100) * 6}
+              x2={(myIslandPosition.x / 100) * 6}
+              y2={(myIslandPosition.y / 100) * 6}
+              stroke="#FFCC00CC"
+              strokeWidth="0.05"
+            />
+          )}
+
           {Array.from(
             movementDirection
               .reduce((map, pos, index) => {
@@ -166,6 +212,7 @@ export const Battlefield = () => {
                     dominantBaseline="central"
                     fontSize="0.24"
                     fontWeight="bold"
+                    fill="white"
                   >
                     {order}
                   </text>
@@ -174,6 +221,20 @@ export const Battlefield = () => {
             )
           })}
         </svg>
+      )}
+
+      {myIslandPosition && (
+        <div
+          className="size-[12%] border-[1vmin] rounded-full absolute -translate-x-1/2 -translate-y-1/2 text-white text-[5vmin] font-bold flex items-center justify-center"
+          style={{
+            left: `${myIslandPosition.x}%`,
+            top: `${myIslandPosition.y}%`,
+            borderColor: myIslandPosition.color,
+            backgroundColor: `${myIslandPosition.color}AA`,
+          }}
+        >
+          5
+        </div>
       )}
     </div>
   )
