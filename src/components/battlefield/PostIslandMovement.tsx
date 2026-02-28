@@ -1,6 +1,7 @@
 import { useAtomValue } from 'jotai'
+import { ArrowRight } from 'lucide-react'
 import { useMemo } from 'react'
-import { type PostPhaseMovementPosition, postPhaseMovementMapping, roles } from '../../lib/ffxiv'
+import { type PostPhaseMovementPosition, postPhaseMovementMapping, postPhasePositionNames, roles } from '../../lib/ffxiv'
 import { cloneEncounterPositionAtom, roleAtom, safeAreaAtom, safeIslandAtom, swallowedCloneAtom } from '../../stores/state'
 
 const positionToCoordinates: Record<PostPhaseMovementPosition, { x: number; y: number }> = {
@@ -91,6 +92,30 @@ export const PostIslandMovement = () => {
             )
           })}
         </svg>
+      )}
+
+      {movementDirection && (
+        <div className="absolute top-0 left-0 right-0 w-full flex items-center justify-center text-white text-[5vmin] font-bold pointer-events-none">
+          <ruby style={{ color: postPhasePositionNames[movementDirection[0]].color }}>
+            {postPhasePositionNames[movementDirection[0]].text}
+            <rt>{postPhasePositionNames[movementDirection[0]].gimmick}</rt>
+          </ruby>
+          <ArrowRight className="size-[5vmin]" />{' '}
+          <ruby style={{ color: postPhasePositionNames[movementDirection[1]].color }}>
+            {postPhasePositionNames[movementDirection[1]].text}
+            <rt>{postPhasePositionNames[movementDirection[1]].gimmick}</rt>
+          </ruby>
+          <ArrowRight className="size-[5vmin]" />{' '}
+          <ruby style={{ color: postPhasePositionNames[movementDirection[2]].color }}>
+            {postPhasePositionNames[movementDirection[2]].text}
+            <rt>{postPhasePositionNames[movementDirection[2]].gimmick}</rt>
+          </ruby>
+          <ArrowRight className="size-[5vmin]" />{' '}
+          <ruby style={{ color: postPhasePositionNames[movementDirection[3]].color }}>
+            {postPhasePositionNames[movementDirection[3]].text}
+            <rt>{postPhasePositionNames[movementDirection[3]].gimmick}</rt>
+          </ruby>
+        </div>
       )}
     </>
   )

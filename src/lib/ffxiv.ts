@@ -130,6 +130,18 @@ export const movementMapping: Record<
   'NW-manaburst': ['X', '2', 'C', '2'],
 }
 
+export const movementPositionNames: Record<MovementPosition, { text: string; color: string; gimmick: string; urgent?: boolean }> = {
+  '1': { text: '1번징', color: '#FF6E6E', gimmick: '쉐어' },
+  '2': { text: '2번징', color: '#F3FB9C', gimmick: '쉐어' },
+  '3': { text: '3번징', color: '#9BECFE', gimmick: '?' },
+  '4': { text: '4번징', color: '#C878FF', gimmick: '?' },
+  A: { text: 'A징', color: '#FF6E6E', gimmick: '?' },
+  B: { text: 'B징', color: '#F3FB9C', gimmick: '?' },
+  C: { text: 'C징 밖', color: '#9BECFE', gimmick: '산개', urgent: true },
+  D: { text: 'D징 밖', color: '#C878FF', gimmick: '산개', urgent: true },
+  X: { text: '본대', color: '#FFFFFF', gimmick: '산개 피하기' },
+}
+
 export const positionToCoordinates: Record<MovementPosition, { x: number; y: number; safeX?: number; safeY?: number }> = {
   A: { x: 50, y: 21 },
   B: { x: 100 - 21, y: 50 },
@@ -184,4 +196,17 @@ export const postPhaseMovementMapping: Record<
   '2-plus-C-A-D': ['B', '4', 'BC', '0'],
   '2-plus-C-C-B': ['B', 'b', 'BC', '1'],
   '2-plus-C-C-D': ['B', 'd', 'BC', '1'],
+}
+
+export const postPhasePositionNames: Record<PostPhaseMovementPosition, { text: string; color: string; gimmick: string }> = {
+  '1': { text: '1번징 양옆', color: '#FF6E6E', gimmick: '불편하게' },
+  '2': { text: '2번징', color: '#F3FB9C', gimmick: '편하게' },
+  '0': { text: '배밑', color: '#FFFFFF', gimmick: '편하게' },
+  '4': { text: '4번징', color: '#C878FF', gimmick: '편하게' },
+  A: { text: 'A징 밖', color: '#FF6E6E', gimmick: '쉐어' },
+  B: { text: 'B징 밖', color: '#F3FB9C', gimmick: '쉐어' },
+  AB: { text: '1시 밖', color: '#FFFFFF', gimmick: '쉐어' },
+  BC: { text: '5시 밖', color: '#FFFFFF', gimmick: '쉐어' },
+  b: { text: 'B징 위아래', color: '#F3FB9C', gimmick: '불편하게' },
+  d: { text: 'D징 위아래', color: '#C878FF', gimmick: '불편하게' },
 }

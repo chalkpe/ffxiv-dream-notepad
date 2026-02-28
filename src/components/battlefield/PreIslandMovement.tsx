@@ -1,6 +1,16 @@
 import { useAtomValue } from 'jotai'
+import { ArrowRight } from 'lucide-react'
 import { useMemo } from 'react'
-import { bottomTowers, type MovementPosition, movementMapping, positionToCoordinates, roles, topTowers } from '../../lib/ffxiv'
+import {
+  bottomTowers,
+  type MovementPosition,
+  movementMapping,
+  movementPositionNames,
+  positionToCoordinates,
+  roles,
+  topTowers,
+} from '../../lib/ffxiv'
+import { cn } from '../../lib/utils'
 import { firstAttackAtom, playerPositionAtom, roleAtom, towerTypeAtom } from '../../stores/state'
 
 export const PreIslandMovement = () => {
@@ -97,6 +107,54 @@ export const PreIslandMovement = () => {
             )
           })}
         </svg>
+      )}
+
+      {movementDirection && (
+        <div className="absolute top-0 left-0 right-0 w-full flex items-center justify-center text-white text-[5vmin] pointer-events-none font-bold">
+          <ruby
+            className={cn(movementPositionNames[movementDirection[0]].urgent && 'animate-bounce')}
+            style={{
+              animationDuration: '0.5s',
+              color: movementPositionNames[movementDirection[0]].color,
+            }}
+          >
+            {movementPositionNames[movementDirection[0]].text}
+            <rt>{movementPositionNames[movementDirection[0]].gimmick}</rt>
+          </ruby>
+          <ArrowRight className="size-[5vmin]" />{' '}
+          <ruby
+            className={cn(movementPositionNames[movementDirection[1]].urgent && 'animate-bounce')}
+            style={{
+              animationDuration: '0.5s',
+              color: movementPositionNames[movementDirection[1]].color,
+            }}
+          >
+            {movementPositionNames[movementDirection[1]].text}
+            <rt>{movementPositionNames[movementDirection[1]].gimmick}</rt>
+          </ruby>
+          <ArrowRight className="size-[5vmin]" />{' '}
+          <ruby
+            className={cn(movementPositionNames[movementDirection[2]].urgent && 'animate-bounce')}
+            style={{
+              animationDuration: '0.5s',
+              color: movementPositionNames[movementDirection[2]].color,
+            }}
+          >
+            {movementPositionNames[movementDirection[2]].text}
+            <rt>{movementPositionNames[movementDirection[2]].gimmick}</rt>
+          </ruby>
+          <ArrowRight className="size-[5vmin]" />{' '}
+          <ruby
+            className={cn(movementPositionNames[movementDirection[3]].urgent && 'animate-bounce')}
+            style={{
+              animationDuration: '0.5s',
+              color: movementPositionNames[movementDirection[3]].color,
+            }}
+          >
+            {movementPositionNames[movementDirection[3]].text}
+            <rt>{movementPositionNames[movementDirection[3]].gimmick}</rt>
+          </ruby>
+        </div>
       )}
 
       {myIslandPosition && (
