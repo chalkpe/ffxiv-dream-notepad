@@ -58,17 +58,6 @@ export const PreIslandMovement = () => {
               />
             ))}
 
-          {movementDirection && myIslandPosition && (
-            <line
-              x1={((positionToCoordinates[movementDirection[3]].safeX ?? positionToCoordinates[movementDirection[3]].x) / 100) * 6}
-              y1={((positionToCoordinates[movementDirection[3]].safeY ?? positionToCoordinates[movementDirection[3]].y) / 100) * 6}
-              x2={(myIslandPosition.x / 100) * 6}
-              y2={(myIslandPosition.y / 100) * 6}
-              stroke="#FFCC00CC"
-              strokeWidth="0.05"
-            />
-          )}
-
           {Array.from(
             movementDirection
               .reduce((map, pos, index) => {
