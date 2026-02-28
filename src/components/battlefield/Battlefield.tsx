@@ -2,8 +2,10 @@ import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
 import { swallowedCloneAtom } from '../../stores/state'
 import { MapImage } from './MapImage'
+import { PostIsland } from './PostIsland'
 import { PostIslandMovement } from './PostIslandMovement'
 import { PreIslandMovement } from './PreIslandMovement'
+import { TowerNearFar } from './TowerNearFar'
 import { Waymarks } from './Waymarks'
 
 export const Battlefield = () => {
@@ -14,15 +16,18 @@ export const Battlefield = () => {
     <div className="aspect-square relative w-[85vmin]">
       <MapImage />
       <Waymarks />
-      {isPostPhase ? <PostIslandMovement /> : <PreIslandMovement />}
 
-      {/* <div
-        className={cn('size-[41.5%]', 'border-[#82FFF9] border-[2vmin] rounded-full absolute -translate-x-1/2 -translate-y-1/2')}
-        style={{
-          left: '21%',
-          top: '50%',
-        }}
-      /> */}
+      {isPostPhase ? (
+        <>
+          <PostIslandMovement />
+          <PostIsland />
+        </>
+      ) : (
+        <>
+          <PreIslandMovement />
+          <TowerNearFar />
+        </>
+      )}
     </div>
   )
 }

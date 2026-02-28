@@ -1,53 +1,18 @@
 import { useAtomValue } from 'jotai'
 import { ArrowRight } from 'lucide-react'
 import { useMemo } from 'react'
-import {
-  bottomTowers,
-  type MovementPosition,
-  movementMapping,
-  movementPositionNames,
-  positionToCoordinates,
-  roles,
-  topTowers,
-} from '../../lib/ffxiv'
+import { type MovementPosition, movementMapping, movementPositionNames, positionToCoordinates } from '../../lib/ffxiv'
 import { cn } from '../../lib/utils'
-import { firstAttackAtom, playerPositionAtom, roleAtom, towerTypeAtom } from '../../stores/state'
+import { firstAttackAtom, playerPositionAtom } from '../../stores/state'
 
 export const PreIslandMovement = () => {
-  const role = useAtomValue(roleAtom)
   const playerPosition = useAtomValue(playerPositionAtom)
   const firstAttack = useAtomValue(firstAttackAtom)
-  const towerType = useAtomValue(towerTypeAtom)
 
   const movementDirection = useMemo(
     () => (firstAttack && playerPosition ? movementMapping[`${playerPosition}-${firstAttack}`] : null),
     [firstAttack, playerPosition],
   )
-
-  const myIslandPosition = useMemo(() => {
-    if (!role || !towerType) return null
-
-    const info = roles.find((r) => r.id === role)
-    if (!info) return null
-
-    const offset = 9.5
-    const center = info.group === 1 ? positionToCoordinates.D : positionToCoordinates.B
-    const color = [...topTowers, ...bottomTowers].find((t) => t.id === towerType)?.color ?? '#82FFF9'
-    const isTowerSwapped = info.towerPosition.startsWith('top') !== topTowers.some((t) => t.id === towerType)
-
-    switch (info.towerPosition) {
-      case 'top-left':
-        return { color, x: center.x - offset, y: isTowerSwapped ? center.y + offset : center.y - offset }
-      case 'top-right':
-        return { color, x: center.x + offset, y: isTowerSwapped ? center.y + offset : center.y - offset }
-      case 'bottom-left':
-        return { color, x: center.x - offset, y: isTowerSwapped ? center.y - offset : center.y + offset }
-      case 'bottom-right':
-        return { color, x: center.x + offset, y: isTowerSwapped ? center.y - offset : center.y + offset }
-      default:
-        return null
-    }
-  }, [role, towerType])
 
   return (
     <>
@@ -154,20 +119,6 @@ export const PreIslandMovement = () => {
             {movementPositionNames[movementDirection[3]].text}
             <rt>{movementPositionNames[movementDirection[3]].gimmick}</rt>
           </ruby>
-        </div>
-      )}
-
-      {myIslandPosition && (
-        <div
-          className="size-[12%] border-[1vmin] rounded-full absolute -translate-x-1/2 -translate-y-1/2 text-white text-[5vmin] font-bold flex items-center justify-center"
-          style={{
-            left: `${myIslandPosition.x}%`,
-            top: `${myIslandPosition.y}%`,
-            borderColor: myIslandPosition.color,
-            backgroundColor: `${myIslandPosition.color}AA`,
-          }}
-        >
-          5
         </div>
       )}
     </>
