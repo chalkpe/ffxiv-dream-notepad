@@ -2,18 +2,26 @@ import { useAtomValue } from 'jotai'
 import { useMemo } from 'react'
 import { type MovementPosition, movementMapping } from '../lib/ffxiv'
 import { cn } from '../lib/utils'
-import { firstAttackAtom, playerPositionAtom } from '../stores/state'
+import {
+  cloneEncounterPositionAtom,
+  firstAttackAtom,
+  playerPositionAtom,
+  safeAreaAtom,
+  safeIslandAtom,
+  swallowedCloneAtom,
+  towerTypeAtom,
+} from '../stores/state'
 
 const positionToCoordinates: Record<MovementPosition, { x: number; y: number; safeX?: number; safeY?: number }> = {
-  A: { x: 50, y: 15.5 },
-  B: { x: 100 - 15.5, y: 50 },
-  C: { x: 50, y: 100 - 15.5, safeX: 50, safeY: 100 - 6 },
-  D: { x: 15.5, y: 50, safeX: 6, safeY: 50 },
-  '1': { x: 50, y: 29 },
-  '2': { x: 100 - 29, y: 50 },
-  '3': { x: 50, y: 100 - 29 },
-  '4': { x: 29, y: 50 },
-  X: { x: 66, y: 33 },
+  A: { x: 50, y: 21.5 },
+  B: { x: 100 - 21.5, y: 50 },
+  C: { x: 50, y: 100 - 21.5, safeX: 50, safeY: 100 - 13 },
+  D: { x: 21.5, y: 50, safeX: 13, safeY: 50 },
+  '1': { x: 50, y: 33 },
+  '2': { x: 100 - 33, y: 50 },
+  '3': { x: 50, y: 100 - 33 },
+  '4': { x: 33, y: 50 },
+  X: { x: 100 - 33 - 3, y: 33 + 3 },
 }
 
 export const Battlefield = () => {
@@ -27,14 +35,40 @@ export const Battlefield = () => {
 
   const className = 'size-[6.5vmin] absolute -translate-x-1/2 -translate-y-1/2'
 
+  const cloneEncounterPosition = useAtomValue(cloneEncounterPositionAtom)
+  const safeArea = useAtomValue(safeAreaAtom)
+  const towerType = useAtomValue(towerTypeAtom)
+  const swallowedClone = useAtomValue(swallowedCloneAtom)
+  const safeIsland = useAtomValue(safeIslandAtom)
+
+  const mapType = useMemo(() => {
+    const greenMap = 'map2.png'
+    const blueMap = 'map3.png'
+    const islandMap = 'map4.png'
+
+    switch (true) {
+      case cloneEncounterPosition === undefined:
+        return greenMap
+      case safeArea === undefined:
+        return blueMap
+      case playerPosition === undefined:
+        return greenMap
+      case firstAttack === undefined:
+        return greenMap
+      case towerType === undefined:
+        return islandMap
+      case swallowedClone === undefined:
+        return greenMap
+      case safeIsland === undefined:
+        return islandMap
+      default:
+        return greenMap
+    }
+  }, [firstAttack, safeArea, cloneEncounterPosition, towerType, playerPosition, swallowedClone, safeIsland])
+
   return (
     <div className="aspect-square relative w-[85vmin]">
-      <img src="field.png" alt="전장" className="absolute top-0 left-0 w-full h-full object-contain rounded-full" />
-
-      {/* <div className="absolute top-0 left-0 w-full h-full rounded-full border-4 border-gray-400" /> */}
-
-      {/* <div className="w-full h-1 absolute top-1/2 left-0 bg-gray-400" />
-      <div className="w-1 h-full absolute top-0 left-1/2 bg-gray-400" /> */}
+      <img src={mapType} alt="전장" className="absolute top-0 left-0 w-full h-full object-contain rounded-full" />
 
       <img
         src="waymarka.png"
@@ -91,13 +125,14 @@ export const Battlefield = () => {
           {movementDirection
             .flatMap((pos, index) => (index > 0 ? [[movementDirection[index - 1], pos]] : []))
             .map(([from, to], index) => (
-              <line // biome-ignore lint/suspicious/noArrayIndexKey: index is stable here as movementDirection length is fixed
+              <line
+                // biome-ignore lint/suspicious/noArrayIndexKey: Index is stable and used only for ordering
                 key={`movement-${index}`}
                 x1={((positionToCoordinates[from].safeX ?? positionToCoordinates[from].x) / 100) * 6}
                 y1={((positionToCoordinates[from].safeY ?? positionToCoordinates[from].y) / 100) * 6}
                 x2={((positionToCoordinates[to].safeX ?? positionToCoordinates[to].x) / 100) * 6}
                 y2={((positionToCoordinates[to].safeY ?? positionToCoordinates[to].y) / 100) * 6}
-                stroke="#ffcc00"
+                stroke="#FFCC00"
                 strokeWidth="0.05"
               />
             ))}
@@ -119,7 +154,7 @@ export const Battlefield = () => {
                   cy={((coords.safeY ?? coords.y) / 100) * 6}
                   r="0.2"
                   fill="#808080AA"
-                  stroke={indices.has(1) ? 'lime' : 'black'}
+                  stroke={indices.has(1) ? '#FFAA00' : 'black'}
                   strokeWidth="0.03"
                 />
                 {Array.from(indices).map((order, index) => (
