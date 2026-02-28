@@ -2,6 +2,8 @@ export type Role = 'MT' | 'ST' | 'H1' | 'H2' | 'D1' | 'D2' | 'D3' | 'D4'
 
 export type RoleType = 'T' | 'H' | 'D'
 
+export type RolePosition = 'melee' | 'ranged'
+
 /** 쉐어 그룹: 멘조 or 섭조 */
 export type StackGroup = 1 | 2
 
@@ -18,18 +20,19 @@ export type RoleInfo = {
   id: Role
   type: RoleType
   group: StackGroup
+  position: RolePosition
   towerPosition: TowerPosition
 }
 
 export const roles: RoleInfo[] = [
-  { id: 'MT', type: 'T', group: 1, towerPosition: 'top-right' },
-  { id: 'ST', type: 'T', group: 2, towerPosition: 'bottom-left' },
-  { id: 'H1', type: 'H', group: 1, towerPosition: 'bottom-left' },
-  { id: 'H2', type: 'H', group: 2, towerPosition: 'top-right' },
-  { id: 'D1', type: 'D', group: 1, towerPosition: 'bottom-right' },
-  { id: 'D2', type: 'D', group: 2, towerPosition: 'top-left' },
-  { id: 'D3', type: 'D', group: 1, towerPosition: 'top-left' },
-  { id: 'D4', type: 'D', group: 2, towerPosition: 'bottom-right' },
+  { id: 'MT', type: 'T', group: 1, position: 'melee', towerPosition: 'top-right' },
+  { id: 'ST', type: 'T', group: 2, position: 'melee', towerPosition: 'bottom-left' },
+  { id: 'H1', type: 'H', group: 1, position: 'ranged', towerPosition: 'bottom-left' },
+  { id: 'H2', type: 'H', group: 2, position: 'ranged', towerPosition: 'top-right' },
+  { id: 'D1', type: 'D', group: 1, position: 'melee', towerPosition: 'bottom-right' },
+  { id: 'D2', type: 'D', group: 2, position: 'melee', towerPosition: 'top-left' },
+  { id: 'D3', type: 'D', group: 1, position: 'ranged', towerPosition: 'top-left' },
+  { id: 'D4', type: 'D', group: 2, position: 'ranged', towerPosition: 'bottom-right' },
 ]
 
 /** 첫 번째 분신 등장 위치: 십자 or 엑스자 */
@@ -103,6 +106,27 @@ export const bottomTowers: TowerInfo[] = [
   { id: 'fire', name: '불', color: '#e66163' },
   { id: 'dark', name: '어둠', color: '#8b65a6' },
 ]
+
+export type NearFarPosition = 'D6' | 'B6' | 'D3' | 'B9' | '2' | '4' | '2X' | '4X'
+
+export const nearFarMapping: Record<`${RolePosition}-${StackGroup}-${TowerType}`, NearFarPosition> = {
+  'melee-1-wind': 'B9',
+  'melee-1-earth': '4X',
+  'melee-1-fire': '4X',
+  'melee-1-dark': '4',
+  'melee-2-wind': 'D3',
+  'melee-2-earth': '2X',
+  'melee-2-fire': '2X',
+  'melee-2-dark': '2',
+  'ranged-1-wind': 'B9',
+  'ranged-1-earth': 'D6',
+  'ranged-1-fire': 'D6',
+  'ranged-1-dark': '4',
+  'ranged-2-wind': 'D3',
+  'ranged-2-earth': 'B6',
+  'ranged-2-fire': 'B6',
+  'ranged-2-dark': '2',
+}
 
 /** 이동 지점: 바닥징 or X(산개 피하는 자리) */
 export type MovementPosition = WaymarkType | 'X'
