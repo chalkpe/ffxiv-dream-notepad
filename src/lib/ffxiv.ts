@@ -130,6 +130,18 @@ export const movementMapping: Record<
   'NW-manaburst': ['X', '2', 'C', '2'],
 }
 
+export const positionToCoordinates: Record<MovementPosition, { x: number; y: number; safeX?: number; safeY?: number }> = {
+  A: { x: 50, y: 21 },
+  B: { x: 100 - 21, y: 50 },
+  C: { x: 50, y: 100 - 21, safeX: 50, safeY: 100 - 13 },
+  D: { x: 21, y: 50, safeX: 13, safeY: 50 },
+  '1': { x: 50, y: 33 },
+  '2': { x: 100 - 33, y: 50 },
+  '3': { x: 50, y: 100 - 33 },
+  '4': { x: 33, y: 50 },
+  X: { x: 100 - 33 - 3, y: 33 + 3 },
+}
+
 export type IslandType = 'B' | 'D'
 
 export const islands: IslandType[] = ['D', 'B']

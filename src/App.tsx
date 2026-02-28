@@ -1,4 +1,4 @@
-import { Battlefield } from './components/Battlefield'
+import { Battlefield } from './components/battlefield/Battlefield'
 import { DreamSwitchA } from './components/DreamSwitchA'
 import { DreamSwitchB } from './components/DreamSwitchB'
 
