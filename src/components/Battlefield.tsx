@@ -62,6 +62,8 @@ export const Battlefield = () => {
     }
   }, [firstAttack, safeArea, cloneEncounterPosition, towerType, playerPosition, swallowedClone, safeIsland])
 
+  const isPostPhase = useMemo(() => swallowedClone !== undefined, [swallowedClone])
+
   const movementDirection = useMemo(
     () => (firstAttack && playerPosition ? movementMapping[`${playerPosition}-${firstAttack}`] : null),
     [firstAttack, playerPosition],
@@ -154,7 +156,7 @@ export const Battlefield = () => {
         }}
       /> */}
 
-      {movementDirection && (
+      {movementDirection && !isPostPhase && (
         <svg viewBox="0 0 6 6" className="absolute top-0 left-0 w-full h-full" aria-label="이동 방향">
           {movementDirection
             .flatMap((pos, index) => (index > 0 ? [[movementDirection[index - 1], pos]] : []))
@@ -223,7 +225,7 @@ export const Battlefield = () => {
         </svg>
       )}
 
-      {myIslandPosition && (
+      {!isPostPhase && myIslandPosition && (
         <div
           className="size-[12%] border-[1vmin] rounded-full absolute -translate-x-1/2 -translate-y-1/2 text-white text-[5vmin] font-bold flex items-center justify-center"
           style={{

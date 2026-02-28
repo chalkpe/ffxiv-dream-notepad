@@ -133,3 +133,43 @@ export const movementMapping: Record<
 export type IslandType = 'B' | 'D'
 
 export const islands: IslandType[] = ['D', 'B']
+
+export type PostPhaseMovementPosition = 'A' | 'B' | 'AB' | 'BC' | '0' | '1' | '2' | '4' | 'b' | 'd'
+
+export const postPhaseMovementMapping: Record<
+  `${StackGroup}-${CloneEncounterPosition}-${ClonePosition}-${ClonePosition}-${IslandType}`,
+  [PostPhaseMovementPosition, PostPhaseMovementPosition, PostPhaseMovementPosition, PostPhaseMovementPosition]
+> = {
+  '1-cross-A-A-B': ['AB', 'b', 'A', '1'], // A징이 좌우 안전인데, A징이 먹힘 => B징 섬에서 위아래 안전 => 1번징에서 좌우 안전 (불편하게)
+  '1-cross-A-A-D': ['AB', 'd', 'A', '1'], // A징이 좌우 안전인데, A징이 먹힘 => D징 섬에서 위아래 안전 => 1번징에서 좌우 안전 (불편하게)
+  '1-cross-A-C-B': ['AB', '2', 'A', '0'], // A징이 좌우 안전인데, C징이 먹힘 => B징 섬에서 좌우 안전 => 1번징에서 위아래 안전 (편하게)
+  '1-cross-A-C-D': ['AB', '4', 'A', '0'], // A징이 좌우 안전인데, C징이 먹힘 => D징 섬에서 좌우 안전 => 1번징에서 위아래 안전 (편하게)
+  '1-cross-C-A-B': ['AB', '2', 'A', '0'], // C징이 좌우 안전인데, A징이 먹힘 => B징 섬에서 좌우 안전 => 1번징에서 위아래 안전 (편하게)
+  '1-cross-C-A-D': ['AB', '4', 'A', '0'], // C징이 좌우 안전인데, A징이 먹힘 => D징 섬에서 좌우 안전 => 1번징에서 위아래 안전 (편하게)
+  '1-cross-C-C-B': ['AB', 'b', 'A', '1'], // C징이 좌우 안전인데, C징이 먹힘 => B징 섬에서 위아래 안전 => 1번징에서 좌우 안전 (불편하게)
+  '1-cross-C-C-D': ['AB', 'd', 'A', '1'], // C징이 좌우 안전인데, C징이 먹힘 => D징 섬에서 위아래 안전 => 1번징에서 좌우 안전 (불편하게)
+  '1-plus-A-A-B': ['A', 'b', 'AB', '1'],
+  '1-plus-A-A-D': ['A', 'd', 'AB', '1'],
+  '1-plus-A-C-B': ['A', '2', 'AB', '0'],
+  '1-plus-A-C-D': ['A', '4', 'AB', '0'],
+  '1-plus-C-A-B': ['A', '2', 'AB', '0'],
+  '1-plus-C-A-D': ['A', '4', 'AB', '0'],
+  '1-plus-C-C-B': ['A', 'b', 'AB', '1'],
+  '1-plus-C-C-D': ['A', 'd', 'AB', '1'],
+  '2-cross-A-A-B': ['BC', 'b', 'B', '1'],
+  '2-cross-A-A-D': ['BC', 'd', 'B', '1'],
+  '2-cross-A-C-B': ['BC', '2', 'B', '0'],
+  '2-cross-A-C-D': ['BC', '4', 'B', '0'],
+  '2-cross-C-A-B': ['BC', '2', 'B', '0'],
+  '2-cross-C-A-D': ['BC', '4', 'B', '0'],
+  '2-cross-C-C-B': ['BC', 'b', 'B', '1'],
+  '2-cross-C-C-D': ['BC', 'd', 'B', '1'],
+  '2-plus-A-A-B': ['B', 'b', 'BC', '1'],
+  '2-plus-A-A-D': ['B', 'd', 'BC', '1'],
+  '2-plus-A-C-B': ['B', '2', 'BC', '0'],
+  '2-plus-A-C-D': ['B', '4', 'BC', '0'],
+  '2-plus-C-A-B': ['B', '2', 'BC', '0'],
+  '2-plus-C-A-D': ['B', '4', 'BC', '0'],
+  '2-plus-C-C-B': ['B', 'b', 'BC', '1'],
+  '2-plus-C-C-D': ['B', 'd', 'BC', '1'],
+}
