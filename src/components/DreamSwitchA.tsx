@@ -33,29 +33,6 @@ export const DreamSwitchA = () => {
           ))}
         </div>
       </XIVDialog>
-      <XIVDialog className="flex flex-col gap-[1vmin]" active={safeArea === undefined}>
-        <h2 className="text-[2.5vmin] font-bold">부채꼴 안전지대</h2>
-        <div className="flex gap-[2vmin]">
-          {safeAreas.map((area) => (
-            <button
-              key={area}
-              type="button"
-              onClick={() => setSafeArea(area)}
-              className={cn('cursor-pointer', safeArea !== undefined && safeArea !== area && 'opacity-10 cursor-not-allowed')}
-            >
-              <img
-                src={`waymark${area.toLowerCase()}.png`}
-                alt={`${area}징 양옆`}
-                className={cn(
-                  'size-[10vmin] border-[0.5vmin] rounded-full box-border',
-                  area === 'A' && 'border-[#FF6E6EFF] bg-[#FF6E6E99]',
-                  area === 'C' && 'border-[#9BECFEFF] bg-[#9BECFE99]',
-                )}
-              />
-            </button>
-          ))}
-        </div>
-      </XIVDialog>
 
       <XIVDialog className="flex flex-col gap-[1vmin]" active={playerPosition === undefined}>
         <h2 className="text-[2.5vmin] font-bold">분신 연결 방향</h2>
@@ -81,6 +58,30 @@ export const DreamSwitchA = () => {
               className="size-[16vmin] absolute top-0 left-0 right-0 bottom-0 m-auto pointer-events-none"
             />
           )}
+        </div>
+      </XIVDialog>
+
+      <XIVDialog className="flex flex-col gap-[1vmin]" active={safeArea === undefined}>
+        <h2 className="text-[2.5vmin] font-bold">부채꼴 안전지대</h2>
+        <div className="flex gap-[2vmin]">
+          {safeAreas.map((area) => (
+            <button
+              key={area}
+              type="button"
+              onClick={() => setSafeArea(area)}
+              className={cn('cursor-pointer', safeArea !== undefined && safeArea !== area && 'opacity-10 cursor-not-allowed')}
+            >
+              <img
+                src={`waymark${area.toLowerCase()}.png`}
+                alt={`${area}징 양옆`}
+                className={cn(
+                  'size-[10vmin] border-[0.5vmin] rounded-full box-border',
+                  area === 'A' && 'border-[#FF6E6EFF] bg-[#FF6E6E99]',
+                  area === 'C' && 'border-[#9BECFEFF] bg-[#9BECFE99]',
+                )}
+              />
+            </button>
+          ))}
         </div>
       </XIVDialog>
 
